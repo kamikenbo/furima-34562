@@ -3,10 +3,9 @@
 
 | Column | Type   | Options     |
 | ------ | ------ | ----------- |
-| email  | string | null: false |
+| email  | string | null: false, uniqueness: true|
 | name   | string | null: false |
-| encrypted password| string | null: false、 uniqueness: true|
-| encrypted password confirmation  | string | null: false |
+| encrypted_password| string | null: false | 
 | last_name  | string | null: false |
 | first_name  | string | null: false |
 | last_name_kana  | string | null: false |
@@ -17,9 +16,10 @@
 association
 -has_many :items
 -has_many :comments
--has_one :credit
+-has_many :users_tags
+-has_many :tags, through: :users_tags
 
-validates:email,uniqueness: confirmation:true
+
 
 
 ## items テーブル
@@ -28,17 +28,19 @@ validates:email,uniqueness: confirmation:true
 | ------ | ---------- | ------------------------------ |
 | title   | string    | null: false |
 | content | text    | null: false |
-| category | text    | null: false |
+| category_id | text    | null: false |
 | item_condition_id | integer    | null: false |
 | shipping_cost_id | integer    | null: false |
 | delivery_area_id | integer    | null: false |
 | shipping_day_id | integer    | null: false |
-| cost | integer    | null: false |
+| price | integer    | null: false |
 | user    | references | null: false, foreign_key: true |
 
 association
 -belongs_to :user
 has_many :comments
+-has_many :users_tags
+-has_many :users, through: :users_tags
 
 
 ## comments テーブル
@@ -54,28 +56,27 @@ association
 -belongs_to :item
 
 
-## credit テーブル
+## managements テーブル
 
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
-| card_number_id    | integer       | null: false          |
-| expiration_date_id    | integer | null: false,                |
-| security_card_id    | integer | null: false, |
+| buyer    | string       | null: false          |
+| saler    | string       | null: false          |
 | user    | references | null: false, foreign_key: true |
 
 -belongs_to :user 
--has_one :delivery
+-has_one :deliveries
 
-##  delivery テーブル
+##  deliveries テーブル
 
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
-| postal_card_id    | integer       | null: false          |
-| prefecture_id    | integer | null: false,                |
-| city_id    | integer | null: false, |
-| address_id    | integer       | null: false          |
-| building_id    | integer | null: false,                |
-| phone_number_id    | integer | null: false, |
-| credit    | references | null: false, foreign_key: true |
+| postal_code    | string       | null: false          |
+| prefecture    | integer | null: false,                |
+| city    | string | null: false, |
+| address    | string       | null: false          |
+| building_name   | string    |
+| phone_number    | string | null: false, |
+| managements    | references | null: false, foreign_key: true |
 
--belongs_to :credit
+-belongs_to :management
