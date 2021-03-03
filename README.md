@@ -3,7 +3,7 @@
 
 | Column | Type   | Options     |
 | ------ | ------ | ----------- |
-| email  | string | null: false, uniqueness: true|
+| email  | string | null: false, unique: true|
 | name   | string | null: false |
 | encrypted_password| string | null: false | 
 | last_name  | string | null: false |
@@ -16,8 +16,7 @@
 association
 -has_many :items
 -has_many :comments
--has_many :users_tags
--has_many :tags, through: :users_tags
+-has_many :managements
 
 
 
@@ -28,19 +27,19 @@ association
 | ------ | ---------- | ------------------------------ |
 | title   | string    | null: false |
 | content | text    | null: false |
-| category_id | text    | null: false |
+| category_id | integer    | null: false |
 | item_condition_id | integer    | null: false |
 | shipping_cost_id | integer    | null: false |
-| delivery_area_id | integer    | null: false |
+| prefecture_id | integer    | null: false |
 | shipping_day_id | integer    | null: false |
 | price | integer    | null: false |
 | user    | references | null: false, foreign_key: true |
 
 association
 -belongs_to :user
-has_many :comments
--has_many :users_tags
--has_many :users, through: :users_tags
+-has_many :comments
+-has_one :management
+-has_many :deliveries
 
 
 ## comments テーブル
@@ -60,23 +59,27 @@ association
 
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
-| buyer    | string       | null: false          |
-| saler    | string       | null: false          |
+
 | user    | references | null: false, foreign_key: true |
+| item    | references | null: false, foreign_key: true |
 
 -belongs_to :user 
--has_one :deliveries
+-has_many :deliveries
+-belongs_to :item
+
 
 ##  deliveries テーブル
 
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
 | postal_code    | string       | null: false          |
-| prefecture    | integer | null: false,                |
+| prefecture_id    | integer | null: false,                |
 | city    | string | null: false, |
 | address    | string       | null: false          |
 | building_name   | string    |
-| phone_number    | string | null: false, |
-| managements    | references | null: false, foreign_key: true |
+| phone_number    | string | null: false |
+| item    | references | null: false, foreign_key: true |
+| management    | references | null: false, foreign_key: true |
 
--belongs_to :management
+-belongs_to :item
+-belong_to :management
