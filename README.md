@@ -39,7 +39,6 @@ association
 -belongs_to :user
 -has_many :comments
 -has_one :management
-<!-- -has_many :deliveries -->
 
 
 ## comments テーブル
@@ -80,5 +79,4 @@ association
 | phone_number    | string | null: false |
 | management    | references | null: false, foreign_key: true |
 
-<!-- -belongs_to :item -->
 -belongs_to :management
