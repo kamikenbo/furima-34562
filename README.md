@@ -66,7 +66,7 @@ association
 -belongs_to :user 
 <!-- -has_many :deliveries -->
 -belongs_to :item
--has_one :deliveries
+-has_one :delivery
 
 ##  deliveries テーブル
 
