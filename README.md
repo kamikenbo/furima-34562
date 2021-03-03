@@ -64,9 +64,9 @@ association
 | item    | references | null: false, foreign_key: true |
 
 -belongs_to :user 
--has_many :deliveries
+<!-- -has_many :deliveries -->
 -belongs_to :item
-
+-has_one :deliveries
 
 ##  deliveries テーブル
 
@@ -78,7 +78,6 @@ association
 | address    | string       | null: false          |
 | building_name   | string    |
 | phone_number    | string | null: false |
-<!-- | item    | references | null: false, foreign_key: true | -->
 | management    | references | null: false, foreign_key: true |
 
 <!-- -belongs_to :item -->
