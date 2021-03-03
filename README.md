@@ -39,7 +39,7 @@ association
 -belongs_to :user
 -has_many :comments
 -has_one :management
--has_many :deliveries
+<!-- -has_many :deliveries -->
 
 
 ## comments テーブル
@@ -78,8 +78,8 @@ association
 | address    | string       | null: false          |
 | building_name   | string    |
 | phone_number    | string | null: false |
-| item    | references | null: false, foreign_key: true |
+<!-- | item    | references | null: false, foreign_key: true | -->
 | management    | references | null: false, foreign_key: true |
 
--belongs_to :item
--belong_to :management
+<!-- -belongs_to :item -->
+-belongs_to :management
