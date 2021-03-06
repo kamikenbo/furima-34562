@@ -23,17 +23,17 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Nickname can't be blank")
       end
-      it 'encrypted_passwordが空では登録できない' do
+      it 'passwordが空では登録できない' do
         @user.password = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Password can't be blank")
       end
-      it 'encrypted_passwordが存在してもpassword_confirmationが空では登録できない' do
+      it 'passwordが存在してもpassword_confirmationが空では登録できない' do
         @user.password_confirmation = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
-      it 'encrypted_passwordが5文字以下では登録できない' do
+      it 'passwordが5文字以下では登録できない' do
         @user.password = '00000'
         @user.password_confirmation = '00000'
         @user.valid?
@@ -56,9 +56,21 @@ RSpec.describe User, type: :model do
         another_user.valid?
         expect(another_user.errors.full_messages).to include('Email has already been taken')
       end
-      it 'encrypted_passwordが半角英数字混合での入力が必須であること' do
+      it 'passwordが半角英数字混合での入力が必須であること' do
         @user.password = 'aaaaaa'
         @user.password_confirmation = 'aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password Include both letters and numbers')
+      end
+      it 'passwordが半角数字のみでは登録できない' do
+        @user.password = 'aaaaaa'
+        @user.password_confirmation = 'aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password Include both letters and numbers')
+      end
+      it 'passwordが半角英語のみでは登録できない' do
+        @user.password = '111111'
+        @user.password_confirmation = '111111'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password Include both letters and numbers')
       end
