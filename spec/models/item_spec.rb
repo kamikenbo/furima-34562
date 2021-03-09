@@ -89,6 +89,15 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be less than 10000000')
       end
+        it 'category_id,prefecture_id,shipping_cost_id,item_condition_id,shippng_day_idのidが1では登録できない' do
+          @item.shipping_day_id = '1'
+          @item.prefecture_id = '1'
+          @item.item_condition_id = '1'
+          @item.category_id = '1'
+          @item.shipping_cost_id = '1'
+          @item.valid?
+          expect(@item.errors.full_messages).to include('Price is not a number')
+      end
     end
   end
 end
