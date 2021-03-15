@@ -12,7 +12,6 @@ class ItemsController < ApplicationController
   end
 
   def create
-    binding.pry
     @item = Item.new(item_params)
     if @item.save
       redirect_to root_path
@@ -22,9 +21,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if  @item.management.present?
-      redirect_to root_path
-   end
+    redirect_to root_path if @item.management.present?
   end
 
   def update
@@ -58,7 +55,6 @@ class ItemsController < ApplicationController
   end
 
   def contributor_confirmation
-    redirect_to action: :index unless current_user.id == @item.user_id  
+    redirect_to action: :index unless current_user.id == @item.user_id
   end
-  
 end
