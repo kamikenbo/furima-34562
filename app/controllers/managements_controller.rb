@@ -1,11 +1,11 @@
 class ManagementsController < ApplicationController
   before_action :authenticate_user!, expect: [:index, :show]
   before_action :set_item, only: [:index, :create]
+  before_action :set_redirect, only: [:index, :create]
 
   def index
     @management_address = ManagementAddress.new
-    if current_user == @item.user || @item.management.present?
-      redirect_to root_path
+    
     end
   end
 
@@ -29,7 +29,7 @@ class ManagementsController < ApplicationController
   end
 
   def pay_item
-    # Payjp.api_key = 'sk_test_a31563ac3f47e0d02ff5405b'
+    
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
       amount: @item.price,  # 商品の値段
@@ -40,6 +40,11 @@ class ManagementsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  def set_redirect
+    if current_user == @item.user || @item.management.present?
+      redirect_to root_path
   end
 
 end

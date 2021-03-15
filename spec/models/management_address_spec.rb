@@ -5,9 +5,6 @@ RSpec.describe ManagementAddress, type: :model do
     user_sell = FactoryBot.create(:user)
     user_buy = FactoryBot.create(:user)
     item = FactoryBot.create(:item, user_id: user_sell.id)
-    # # user_sell = FactoryBot.create(:user)
-    # user_buy = FactoryBot.create(:user)
-    # item = FactoryBot.create(:item)
     @management_address = FactoryBot.build(:management_address, user_id: user_buy.id, item_id: item.id)
     sleep 0.1
   end
@@ -80,6 +77,16 @@ RSpec.describe ManagementAddress, type: :model do
         @management_address.item_id = nil
         @management_address.valid?
         expect(@management_address.errors.full_messages).to include("Item can't be blank")
+      end
+      it 'phone_numberが半角英数字混合では登録できない' do
+        @management_address.phone_number = 'aaa111'
+        @management_address.valid?
+        expect(@management_address.errors.full_messages).to include('Phone number 半角数字を使用してください')
+      end
+      it 'phone_numberが半角英語だけでは登録できない' do
+        @management_address.phone_number = 'aaaaaa'
+        @management_address.valid?
+        expect( @management_address.errors.full_messages).to include('Phone number 半角数字を使用してください')
       end
     end
   end
