@@ -34,7 +34,7 @@ RSpec.describe ManagementAddress, type: :model do
         expect(@management_address.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
       end
       it 'prefectureを選択していないと保存できないこと' do
-        @management_address.prefecture_id = 0
+        @management_address.prefecture_id = 1
         @management_address.valid?
         expect(@management_address.errors.full_messages).to include("Prefecture can't be blank")
       end
@@ -59,7 +59,7 @@ RSpec.describe ManagementAddress, type: :model do
         expect(@management_address.errors.full_messages).to include('Phone number 半角数字を使用してください')
       end
       it 'phone_numberが11桁以内ではないと登録できない' do
-        @management_address.phone_number = 'aaaaaaaaaaaa'
+        @management_address.phone_number = '111111111111'
         @management_address.valid?
         expect(@management_address.errors.full_messages).to include('Phone number 半角数字を使用してください')
       end

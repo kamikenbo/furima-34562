@@ -4,9 +4,7 @@ class ManagementsController < ApplicationController
   before_action :set_redirect, only: [:index, :create]
 
   def index
-    @management_address = ManagementAddress.new
-    
-    end
+    @management_address = ManagementAddress.new  
   end
 
   def create
@@ -46,5 +44,5 @@ class ManagementsController < ApplicationController
     if current_user == @item.user || @item.management.present?
       redirect_to root_path
   end
-
+end
 end

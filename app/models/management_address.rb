@@ -11,7 +11,7 @@ class ManagementAddress
     validates :phone_number, length: { maximum: 11 }, format: { with: /\A\d+\z/, message: '半角数字を使用してください' }
     validates :token
   end
-  validates :prefecture_id, numericality: { other_than: 0, message: "can't be blank" }
+  validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
 
   def save
     management = Management.create(item_id: item_id, user_id: user_id)
