@@ -13,7 +13,7 @@ class User < ApplicationRecord
     validates :birthday
   end
 
-  with_options presence: true, format: { with: /\A[一-龥々]+\z/, message: 'Full-width characters' } do
+  with_options presence: true, format: { with: (/\A[ぁ-んァ-ヶ一-龥々ー]+\z/), message: 'Full-width characters' } do
     validates :last_name
     validates :first_name
   end

@@ -24,18 +24,20 @@
       </span>
     </div>
 
-    
-<% if user_signed_in? %>
+ <% if user_signed_in? && unless @item.management.present?%>
   <% if current_user.id == @item.user_id %>
+  
     <%= link_to "商品の編集", edit_item_path(@item), method: :get, class: "item-red-btn" %>
     <p class="or-text">or</p>
      <%= link_to "削除", item_path(@item) , method: :delete, class:"item-destroy" %>
-    <% else %>
-<% unless @item.management.present? %>
+     <% else %>
      <%= link_to "購入画面に進む", item_managements_path(@item), class:"item-red-btn"%>
-      <% end %>
-    <% end %>
+   <% end %>
+  <% end %>
 <% end %>
+
+
+
   
     <div class="item-explain-box">
       <span><%= @item.content %></span>
@@ -56,7 +58,7 @@
         </tr>
         <tr>
           <th class="detail-item">配送料の負担</th>
-          <td class="detail-value"><%= @item.shipping_cost.id %></td>
+          <td class="detail-value"><%= @item.shipping_cost.name %></td>
         </tr>
         <tr>
           <th class="detail-item">発送元の地域</th>
