@@ -6,6 +6,11 @@ RSpec.describe Item, type: :model do
   end
 
   describe '商品登録' do
+    context '商品投稿できる時' do
+      it '全て入力すると保存できる' do
+        expect(@item).to be_valid
+      end
+    end
     context '商品投稿できない時' do
       it 'titleが空では登録できない' do
         @item.title = ''
